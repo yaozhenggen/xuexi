@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>setter和getter的应用</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{fullName}}
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					firstName: "yao",
+					lastName: "zhenggen"
+				},
+				computed: {
+					fullName: {//对象
+						get: function(){
+							return this.firstName + " " + this.lastName;
+						},
+						set: function(value){
+							var arr = value.split(" ");//split可以进行数据的打散成数组进行存储，从而间接的去改变对应的值
+							this.firstName = arr[0];
+							this.lastName = arr[1];
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

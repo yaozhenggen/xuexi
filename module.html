@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件的细节使用</title>
+		<script src="vue.js"></script>
+	</head>
+	<!--
+    	ref: 引用
+    	在子组件中定义dara必须是个函数而不能是对象，是因为子组件会被多次调用
+    -->
+	<body>
+		<div id="app">
+			<counter ref="one" @change="handlechange"></counter>
+			<counter ref="two"@change="handlechange"></counter>
+			<div>{{total}}</div>
+		</div>
+		<script >
+			
+			Vue.component('counter',{//全局组件
+				template: '<div @click="handleClick">{{number}}</div>',
+				data: function(){
+					return {
+						number: 0
+					}
+				},
+				methods: {
+					handleClick: function(){
+						this.number ++
+						this.$emit('change')
+					}
+				}
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					total: 0
+				},
+				methods: {
+					handlechange: function(){
+						this.total = this.$refs.one.number + this.$refs.two.number;
+						
+					}
+				}
+				
+			})
+		</script>
+	</body>
+</html>

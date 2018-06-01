@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>列表渲染</title>
+		<script src="vue.js">
+		</script>
+	</head>
+	<!--
+    	1.不能直接通过下标的形式去改变数组，因为页面不会跟着改变
+    	2.pop: 用于删除数组的最后一项
+    	3.push: 用于往数组里面添加一条数据
+    	4.shift: 用于删除数组的第一项
+    	5.unshift: 用于给数组的第一项添加内容
+    	6.splice: 用于数组的截取
+    	  例：vm.list.id(1,1{id: "1646", text: "dd"})//从数组1开始删除一条数组，从而进行改变
+    	7.sort: 用于对数组的排序
+    	8.reverse: 用于对数组的取反
+    	9.可以通过数组的引用地址去改变数组
+    	10.template:模板占位符,可以用来包裹一些元素，但不会渲染到页面上
+    	11.可以通过set去改变数组  
+    	  例： vue.set(vm.userInfo,1,5)  //把userInfo对象中的下标为1的数组改成5
+    	  例：vm.$set(vm.userInfo,1,5)
+    -->
+
+	<body>
+		<div id="app">
+			<div v-for="(item,index) of list"
+				 :key="item.id">
+				{{item.text}}  --- {{index}}
+			</div>
+
+		</div>
+
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					list: [{
+                         id: "15262",
+                         text: "aa"
+                       },
+                       {
+                       	id: "15263",
+                         text: "bb"
+                       },
+                       {
+                       	id: "15264",
+                         text: "cc"
+					}]
+				}
+			})
+			
+			
+		</script>
+	</body>
+
+</html>

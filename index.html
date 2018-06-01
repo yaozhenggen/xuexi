@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>hello world</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">{{content}}</div>
+		<script>
+			//js代码
+			/*var dom = document.getElementById('app');
+			dom.innerHTML = 'Hello world'
+			setTimeout(function(){//计时器实现隔时替换
+				dom.innerHTML = 'Hello'
+			},2000)
+			*/
+			
+		//vue实现	
+			var app = new Vue({
+				el: '#app',//管理id对应的div,bu 管其他的div
+				data: {//数据
+					content: 'hello world'
+				}
+			})
+			setTimeout(function(){
+				app.$data.content = 'ti huan'
+			}, 2000)
+		</script>
+	</body>
+</html>

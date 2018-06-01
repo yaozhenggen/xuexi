@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式的绑定</title>
+		<script src="vue.js"></script>
+		<!--<style>
+			.activated{
+				color: red;
+			}
+		</style>-->
+	</head>
+	<body>
+		<!--
+        	:class="{activated: isActivated}
+        	表示这个div里面有一个class,class的名字是activated，它的显示与否由isActivated控制
+        	:class = v-on:class ---用于绑定事件
+        -->
+     
+		<!--   第一种方法
+			<div id="app">
+			<div @click="handledivClick"
+				 :class="{activated: isActivated}">
+				YAO ZHENGEN
+			</div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					isActivated: false  //设置默认值
+				},
+				methods: {
+					handledivClick: function(){
+						this.isActivated = !this.isActivated;//取反
+					}
+				}
+			})
+			
+		</script>-->
+		
+		<!--
+        	:class="[activated]"
+        	解读：
+        	  div里面显示个class,其实是显示activated这个变量
+        -->
+        
+                        <!--     第二种方法
+		<div id="app">
+			<div @click="handledivClick"
+				 :class="[activated]">
+				YAO ZHENGEN
+			</div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					activated: ""  
+				},
+				methods: {
+					handledivClick: function(){
+						this.activated = this.activated === "activated"?
+						"":"activated"
+					}
+				}
+			})
+			
+		</script>-->
+		
+		<div id="app">
+			<!--<div @click="handledivClick"
+				 :style="styleobj">-->
+				 <div @click="handledivClick"
+				 :style="[styleobj,{fontSize:'20px'}]">
+				YAO ZHENGEN
+			</div>
+		</div>
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					styleobj: {
+						color: "black" 
+					}
+				},
+				methods: {
+					handledivClick: function(){
+						this.styleobj.color = this.styleobj.color === "black"?
+						"red":"black";
+					}
+				}
+			})
+			
+		</script>
+		
+	</body>
+</html>

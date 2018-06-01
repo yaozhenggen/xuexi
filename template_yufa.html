@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>模板语法</title>
+		<script src="vue.js">
+			
+		</script>
+	</head>
+	<body>
+		
+		
+		<div id="app">
+		<!--
+			下面几个语法后面是一个js的语法 ,''里面可以通过空格进行格式化
+			语法1：差值表达式
+			{{name + ' lee'}}
+			语言2：
+			  v-text：对数据的一个引用，
+			语法3：
+			  v-html:可以对数据进行html语法的修饰  
+			       比如：name: "<h1>yaozhenggen</h1>"可以实现加粗效果
+			-->
+			<div v-text="name + ' lee'"></div>
+			<div v-html="name"></div>  
+		</div>
+	</body>
+	<script>
+		var vm = new Vue({
+			el: "#app",
+			
+		  data: {
+		
+				name: "yaozhenggen"
+			
+			}
+		})
+	</script>
+</html>

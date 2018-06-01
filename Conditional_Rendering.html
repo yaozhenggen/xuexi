@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>条件渲染</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		
+		<!--
+        	v-if和v-show
+        	1.都是控制是否在页面上显示的
+        	2.v-if所对应的值为false时它会删除对应的div而v-show不会，因而v-show的性能要高些
+        -->
+		<div id="app">
+			<!--<div v-if="show">
+				{{message}}
+			</div>
+			<div v-show="show">
+				{{message}}
+			</div>-->
+			
+			
+			<div v-if="show ==='a'">this is a</div>
+			<div v-else-if="show ==='b'">this is b</div>
+			<div v-else="show ==='c'">this is c</div>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: "a",
+					
+				}
+			})
+			
+		</script>
+	</body>
+</html>

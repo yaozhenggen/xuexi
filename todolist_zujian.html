@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title> Todolist</title>
+		<script src="vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			
+			<!--v-model可以进行数据的双向绑定-->
+			
+			<input type="text" v-model="inputValue"  />
+			
+			<!--v-on用于绑定事件-->
+			
+			<button v-on:click="handleBtnClick">
+			提交
+		    </button>
+			<ul>
+                <!--
+                	1.todo-item里面不能有注释不然读取不到
+                	2.v-bind可以省略掉 
+                	3.item数组数据，index数组下标
+                	4.@click = v-on:click
+                	5.v-bind:向子组件传递一个绑定值,
+                	  list（循环数）传递值为item,
+                	      再通过content属性传递给todoitem
+                -->
+				<todo-item v-bind:content="item"  
+					       v-bind:index="index"
+					       v-for="(item, index) in list"  
+					       v-on:delete="handleItemDelete">  
+				</todo-item>
+			</ul>
+		</div>
+		<script>
+			/*Vue.component("TodoItem",{//全局组件         component（组件）
+				props: ['content'],//接收数据
+				template: "<li>{{content}}</li>"
+			})*/
+			var TodoItem = {  //局部组件
+				props: ['content','index'],/*接收外部传递过来的数据*/
+				template: "<li @click='handleItemClick'>{{content}}</li>" , //子组件模板，todo-item会背组件模板的内容替换掉         template的英文意思是模板
+				methods:{
+					handleItemClick: function(){
+						this.$emit("delete", this.index);//向外触发监听事件
+					}
+				}
+			}
+			var app = new Vue({
+				el: '#app',
+				components: { //局部组件：注册TodoItem，不然无法用todo-item
+					TodoItem: TodoItem
+				},
+				data: {  //数据控制
+					list: [],
+					inputValue: ''
+				},
+				methods: { //方法
+					handleBtnClick: function(){
+						this.list.push(this.inputValue)
+						this.inputValue = ''
+						/*alert(this.inputValue)*/
+					},
+					handleItemDelete: function(index){
+						this.list.splice(index,1)
+					
+					}
+				}
+				
+			})
+		</script>
+	</body>
+
+</html>

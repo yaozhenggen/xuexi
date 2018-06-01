@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>props</title>
+		<script type="text/javascript" src="vue.js">
+			
+		</script>
+	</head>
+	<body>
+		<div id="app">
+			<child content="wo shi "> </child>
+		</div>
+		
+		<script>
+			Vue.component('child',{
+				props: {
+					/*content: [String,number]*/
+					content: {
+						type: String,
+						/*required: false,   //控制是否必传
+						default: 'aa'   //不传的默认值*/
+						validator: function(value){  //检验器，校验value值
+							return (value.length > 5)
+						}
+					}
+				},
+				template: '<div>{{content}}</div>'
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					
+				}
+			})
+		</script>
+	</body>
+</html>

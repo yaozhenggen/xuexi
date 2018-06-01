@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算属性，方法，监听器</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{fullName}}
+			{{age}}
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					firstName: "正根",
+					lastName: "姚",
+					fullName: "姚正根",
+					age: 28
+					
+				},
+				watch:{  //监听器
+					firstName: function(){
+						this.fullName= this.firstName + "" +this.lastName;
+					},
+					lastName: function(){
+						return this.firstName + "" +this.lastName;
+					}
+				}
+				//方法
+			/*	methods:
+				//计算属性,它是内置缓存的,它有一个缓存机制，在这里依赖于firstName和lastName两个属性
+				computed: {
+					fullName: function(){
+						return this.firstName + "" +this.lastName
+					}
+				}*/
+			})
+		</script>
+	</body>
+</html>

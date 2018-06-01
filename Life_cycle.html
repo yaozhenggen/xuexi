@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>生命周期</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+		</div>
+		<!--
+        	1.生命周期：就是vue实例在某个时间点自动执行的函数
+        	2.template(模板)当没有的时候，回吧el所对应的div当做模板进行渲染
+        	
+        -->
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				template: "<div> {{text}}</div>",//{{}}:差值表达式
+				data: {
+					text: "aa"
+				},
+				beforeCreate: function(){ //第一个生命周期节点，在完成部分初始化时执行
+					console.log("beforeCreate");
+				},
+				created: function(){ //第二个生命周期节点，在完成外部注入包括双向绑定等内容后被执行
+					console.log("created");
+				},
+				beforeMount: function(){ //第三个生命周期节点，在模板和数据相结合后
+					console.log(this.$el);    //例子证明
+					console.log("beforeMount");
+				},
+				mounted: function(){ //第四个生命周期节点，页面被挂载后
+					console.log(this.$el); //例子证明
+					console.log("mounted");
+				},
+				beforeDestroy: function(){ //第五个生命周期节点，当destroyed销毁事件被执行后
+					console.log("beforeDestroy");
+				},
+				destroyed: function(){ //第六个生命周期节点
+					console.log("destroyed");
+				},
+				beforeUpdate: function(){ /*第七个生命周期节点，当data数据发生改变时被执行，
+					                                                                         可以到控制视图执行vm.text = "bb"改变数据 
+					                                                                         就可以看到这两个方法体了*/
+					console.log("beforeUpdate");
+				},
+				updated: function(){ //第八个生命周期节点
+					console.log("updated");
+				}
+			})
+		</script>
+	</body>
+</html>
