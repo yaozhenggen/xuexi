@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>作用域插槽</title>
+		<script src="插件/vue.js"></script>
+	</head>
+	<!--
+    	1.<template slot-scope="props">
+    		--slot通过for循环把list的值传给item，然后通过slot-scope接收保存子组件中的数据再把数据的值保存到props中再进行应用
+    	2.作用域插槽： 必须是template
+    -->
+	<body>
+		<div id="app">
+			<chlid>
+				<template slot-scope="props">
+					<li>{{props.item}}</li>
+				</template>
+			</chlid>
+		</div>
+		
+		<script>
+			Vue.component('chlid',{
+				data: function(){
+					return {
+						list: [1,2,3,4]
+					}
+				},
+				template: `<div>
+				               <ul>
+				                   <slot 
+				                        v-for="item of list"
+				                        :item = item
+				                   >
+				                      
+				                   </slot>
+				                   
+				               </ul>
+				           </div>`
+			})
+			
+			var vm = new Vue({
+				el: "#app",
+			})
+		</script>
+	</body>
+</html>

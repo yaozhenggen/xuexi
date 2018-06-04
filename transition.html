@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中多个元素或组件的过渡</title>
+		<script src="插件/vue.js"></script>
+		<style>
+			.v-enter,.v-leave-to{
+				opacity: 0;
+			}
+			.v-enter-active,.v-leave-active{
+				transition: opacity 1s;
+			}
+		</style>
+	</head>
+	<!--
+    	1.设置动画它是显示不出来的，因为他包裹了两个元素，他们间会进行一个复用，所以显示不出来，解决它给它们各自一个key值就好了
+    	2.mode: 用来设置多个元素切换时的效果
+    	3.in-out: 表示切换的时候实现一个先显示后隐藏的一个效果
+    	4.out-in: 表示的跟in-out相反
+    -->
+<!--	<body>
+		<div id="app">
+			<transition mode="in-out">
+			<div v-if="show" key="one">yaozhenggen</div>
+			<div v-else key="two">bye word</div>
+			</transition>
+			<button @click="handleButtonClick">beggin</button>
+			
+		</div>
+		
+		<script>
+			
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: true
+				},
+				methods: {
+					handleButtonClick: function(){
+						this.show = !this.show;
+					}
+				}
+			})
+		</script>
+	</body>-->
+	
+	<body>
+		<div id="app">
+			<transition mode="in-out">
+			<component :is="type"></component>
+			
+			</transition>
+			<button @click="handleButtonClick">beggin</button>
+			
+		</div>
+		
+		<script>
+			Vue.component('child',{
+				template: '<div>第一个</div>'
+			})
+			Vue.component('child-one',{
+				template: '<div>第二个</div>'
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					type: 'child'
+				},
+				methods: {
+					handleButtonClick: function(){
+						this.type = this.type === 'child' ? 'child-one':'child';
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

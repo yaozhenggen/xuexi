@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中js的动画和Velocity.js的结合</title>
+		<script src="插件/vue.js"></script>
+		<script src="插件/velocity.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="插件/animate.min.css">
+	</head>
+	<!--
+    	钩子的应用
+    	1.handleEnter: function（el,done）
+    	   el是div的元素,done是个回调函数
+    	2.done(): 表示动画执行完了会触发after-enter
+    	3.opacity: 透明度
+    	4.duration: 1000 ：表示opacity（透明度）从0到1需要用的时间为1秒
+    	5.complete: done ：表示动画执行结束后调用done函数
+    -->
+	<body>
+		<div id="app">
+			<transition
+			  name="fade"
+			  @before-enter="handleBeforeEnter"
+			  @enter="handleEnter"
+			  @after-enter="handleAfterEnter"
+			  
+			  @before-leave="handleBeforeEnter1"
+			  @leave="handleEnter1"
+			  @after-leave="handleAfterEnter1"
+			  >
+				<div v-show="show">yao zhenggen</div>
+			</transition>
+			<button @click="handleClick">toggle</button>
+		</div>
+		<script>
+			
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: true
+				},
+				methods: {
+					handleClick: function(){
+						this.show = !this.show;
+					},
+					handleBeforeEnter: function(el){
+						el.style.color = 'red'
+					},
+					handleEnter: function(el,done){
+						setTimeout(() =>{
+							el.style.color = 'green'
+							
+						},2000)
+						setTimeout(() =>{
+							done()
+						},4000)
+					},
+					handleAfterEnter: function(el){
+						el.style.color = "#000"
+					},
+					handleBeforeEnter1: function(el){
+						el.style.opacity = 0
+					},
+					handleEnter1: function(el,done){
+						Velocity(el,{
+							opacity: 1
+						},{
+							duration: 1000,
+							complete: done
+						})
+					},
+					handleAfterEnter1: function(el){
+						console.log('动画结束')
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

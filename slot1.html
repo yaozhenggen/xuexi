@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> 在vue中使用插槽(slot)</title>
+		<script src="插件/vue.js"></script>
+	</head>
+	<!--
+    	1.slot:插槽用于插入内容
+    	2.具名插槽可以用slot='名字':可以更好的应用
+    	3.可以设置默认值<slot>默认值</slot>
+    -->
+	<body>
+		<div id="app">
+			<child>
+				<div class="hander" slot="hander">hander</div>
+				<div class="footer" slot="footer">footer</div>
+			</child>
+		</div>
+		
+		<script>
+			Vue.component('child',{
+				
+				template: `<div>
+				              <slot name="footer"></slot>
+				              <p>hello</p>
+				              <slot name='hander'></slot>
+				           </div>`
+			})
+			var vm = new Vue({
+				el: "#app",
+			})
+		</script>
+	</body>
+</html>

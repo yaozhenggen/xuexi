@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中动画的封装</title>
+		<script src="插件/vue.js"></script>
+		<style>
+			.v-enter,.v-leave-to{
+				opacity: 0;
+			}
+			.v-enter-active,.v-leave-active{
+				transition: opacity 1s;
+			}
+		</style>
+	</head>
+	
+	<!--1.封装后可以通过fade标签进行调用
+		2.另一种封装
+		  Vue.component('fade',{
+				props: ['show'],
+				template: `
+				           <transition 
+				           	 @befer-enter="handleBeferEnter"
+				           	 @enter="handleEnter"
+				           	 
+				           	 >
+				               <slot v-if="show"></slot>
+				           </transition>
+				          `,
+				          methods: {
+				          	handleBeferEnter:function(el){
+				          		el.style.color = 'red'
+				          	},
+				          	handleEnter: function(el,done){
+				          		setTimeout(() => {
+				          			el.style.color = 'green'
+				          			done()
+				          		}2000)
+				          	}
+				          }
+			})
+	-->
+	<body>
+		<div id="app">
+		    <fade :show="show">
+			    <div>yao zhenggen</div>
+			</fade>
+			<button @click="handleChangeClick"> 切换</button>
+		</div>
+		
+		<script>
+			
+			Vue.component('fade',{
+				props: ['show'],
+				template: `
+				           <transition>
+				               <slot v-if="show"></slot>
+				           </transition>
+				          `
+			})
+			var vm =new Vue({
+				el: "#app",
+				data: {
+					show: true
+				},
+				methods: {
+					handleChangeClick: function(){
+						this.show = !this.show;
+					}
+				}
+				
+			})
+		</script>
+	</body>
+</html>

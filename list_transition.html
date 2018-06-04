@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中列表的过渡</title>
+		<script src="插件/vue.js"></script>
+		<style>
+			.v-enter,.v-leave-to{
+				opacity: 0;
+			}
+			.v-enter-active,.v-leave-active{
+				transition: opacity 1s;
+			}
+		</style>
+	</head>
+	<!--
+    	1.transition-group: 相当于给每个div上都渲染一个transition
+    -->
+	<body>
+		<div id="app">
+			<transition-group>
+			    <div v-for="item of list" key="item.id">
+				  {{item.title}}
+			    </div>
+			</transition-group>
+			<button @click="handleButtonClick">Add</button>
+		</div>
+		
+		<script>
+			var count = 0;
+			var vm =new Vue({
+				el: "#app",
+				data: {
+					list: []
+				},
+				methods: {
+					handleButtonClick: function(){
+						this.list.push({
+							id: count++,
+							title: "yao zhenggen"
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

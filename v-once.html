@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态组件和v-once</title>
+		<script src="插件/vue.js"></script>
+	</head>
+	<!--
+    	1.component: 动态组件
+    	   --它会根据is里面的数据的变化自动的加载不同的组件
+    	2.:is="type"： 表示绑定一个type数据
+    	3.v-once: 当一个组件第一次被调用后会将其保存到内存中去，方便下次的使用，直接调用就行，不需要重新创建一个组件，提高静态效率
+    -->
+	<body>
+		<div id="app">
+			<!--<component :is="type"></component>-->
+			<child-one v-if="type==='child-one'"></child-one>
+			<child-two v-if="type==='child-two'"></child-two>
+			<button @click="handleChangeClick">change</button>
+		</div>
+		
+		<script>
+			
+			Vue.component('child-one',{
+				template: '<div v-once>child-one</div>'
+			})
+			Vue.component('child-two',{
+				template: '<div v-once>child-two</div>'
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					type: 'child-one'
+				},
+				methods: {
+					handleChangeClick: function(){
+						this.type = this.type === 'child-one'? 'child-two':'child-one'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

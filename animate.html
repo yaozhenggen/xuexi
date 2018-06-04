@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中同时使用过度和动画</title>
+		<script src="插件/vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="插件/animate.min.css" />
+		
+		<style>
+			.fade-enter,
+			.fade-leave-to {
+				opacity: 0;
+			}
+			.fade-active-class,
+			.fade-leave-class {
+				transition: opacity 3s;
+			}
+		</style>
+	</head>
+	<!--调用插件
+    	enter-active-class="animated swing"
+		leave-active-class="animated shake"
+		2.appear（出现/显示/似乎/出庭/登场）： 实现开始进入文字的显示动画效果
+		3.type="transition":<transition type="transition"></transition>
+		    --由于animation和transition都有自己的时间，而这句话定义就是实现时间的具体指定，以transition的为准
+		4.:duration = "3000":
+		    --自定义显示时间
+    -->
+	<body>
+		<div id="app">
+			<transition 
+				:duration = "{enter: 5000,leave: 10000}"
+				name="fade"
+				appear
+				enter-active-class="animated
+				                    swing
+				                    fade-active-class"
+				leave-active-class="animated
+				                    shake
+				                    fade-leave-class"
+				appear-active-class="animated
+				                     swing"
+				>
+			     <div v-if="show"> 
+			        hello
+			     </div>
+			</transition>
+			<button @click="handleClick">
+				切换
+			</button>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: true
+				},
+				methods: {
+					handleClick: function(){
+						this.show = !this.show;//取反
+					}
+				}
+			})
+		</script>
+
+	</body>
+</html>

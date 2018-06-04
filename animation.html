@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>vue中css动画原理</title>
+		<script src="插件/vue.js"></script>
+		<style>
+			.fade-enter,
+			.fade-leave-to{
+				opacity 0;
+			}
+			.fade-enter-active,
+			.fade-leave-active{
+				transition: opacity 3s;
+			
+			
+		</style>
+	</head>
+	<!--
+    	1.transition（过渡/转变）: 它包裹的内容里面会有一个过渡的动画效果
+    	2.transition: opacity 3s;
+    	  --实现opacity对transition的监控，如果监控到opacity发生变化的话会让opacity所对应的值在3s间慢慢进行显示
+    	3fade-enter 不设置name的时候默认为v
+    -->
+	<body>
+		<div id="app">
+			<transition name="fade">
+			     <div v-if="show"> 
+			        hello
+			     </div>
+			</transition>
+			<button @click="handleClick">
+				切换
+			</button>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					show: true
+				},
+				methods: {
+					handleClick: function(){
+						this.show = !this.show;
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
