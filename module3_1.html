@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="{CHARSET}">
+		<title>非父子组件间的传值</title>
+		<script src="插件/vue.js"></script>
+	</head>
+	<!--
+    	1.bus: 总线/观察者模式，发布订阅模式，进行非父子组件间的传值
+    	2.Vue.prototype.bus = new Vue()
+    	  --在vue的prototype上挂载一个bus属性，指向一个vue的实例，使其每个vue都有bus这个属性
+    -->
+	<body>
+		<div id="app">
+			<child content="Dell"></child>
+			<child content="less"></child>
+		</div>
+		
+		<script>
+			Vue.prototype.bus = new Vue()
+			Vue.component('child',{
+				data: function(){
+					return {
+						selfcontent: this.content
+					}
+				},
+				props: {
+					content: String
+				},
+				template: '<div @click="handleClick">{{selfcontent}}</div>',
+				methods: {
+					handleClick: function(){
+						this.bus.$emit('chenge',this.selfcontent)//触发事件的同时，携带content数据内容
+					}
+				},
+				mounted: function(){ //生命周期钩子，挂载时执行的一个函数
+					var this_ = this  //下面的代码会使this的作用域发生改变，所以得进行对this的保存
+					this.bus.$on('chenge',function(msg){//监听chengge事件，监听到了执行function事件
+						this_.selfcontent=msg
+					})
+				}
+			})
+			var vm = new Vue({
+				el: "#app",
+			})
+		</script>
+	</body>
+</html>

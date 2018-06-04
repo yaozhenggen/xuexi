@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>给组件绑定原生事件</title>
+		<script src="插件/vue.js"></script>
+	</head>
+	
+	<!--
+    	1.handleClick绑定的自定义事件,得通过emit进行绑定才能显示
+    	  template: '<div @click="handleChildClick">child</div>',
+				methods: {
+					handleChildClick: function(){
+						this.$emit('click')
+					}
+				}
+    	2.handleChildClick绑定的是原生事件
+    	3.native:事件修饰符，使其成为一个原生的点击事件，可以让其成为一个原生的监听事件
+    -->
+	<body>
+		<div id="app">
+			
+			<child @click.native="handleClick"></child>
+		</div>
+		
+		<script> 
+			Vue.component('child',{
+				template: '<div >child</div>',
+				
+			})
+			
+			var vm = new Vue({
+				
+				el: "#app",
+				data: {
+					
+				},
+				methods: {
+					handleClick: function(){
+						alert("a")
+					}
+				}
+			})
+		
+		</script>
+	</body>
+</html>
